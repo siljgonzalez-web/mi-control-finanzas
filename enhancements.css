@@ -1,0 +1,155 @@
+/* v22 · iPhone + movimientos */
+.moveFields>*{min-width:0}
+input[type="date"]{
+  min-width:0!important;
+  max-width:100%!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  -webkit-appearance:none;
+  appearance:none;
+}
+.recentHead{
+  display:flex;justify-content:space-between;align-items:center;gap:10px;
+  margin:14px 2px 7px
+}
+.recentHead strong{font-size:11px}
+.recentHead span{font-size:10px;color:var(--muted)}
+.moreMovements{
+  width:100%;margin-top:7px;border:1px solid var(--line);background:#fff;color:#111;
+  border-radius:14px;padding:11px 12px;font-size:11px;font-weight:900;
+  display:flex;justify-content:space-between;align-items:center;text-decoration:none
+}
+.movementFilters{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:6px;
+  background:#ece9e3;padding:4px;border-radius:14px;margin-bottom:12px
+}
+.movementFilter{
+  border:0;background:transparent;border-radius:10px;padding:9px 7px;
+  font-size:10px;font-weight:900;color:#756f68
+}
+.movementFilter.active{background:#fff;color:#111;box-shadow:0 2px 7px rgba(0,0,0,.07)}
+.pager{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;margin-top:12px
+}
+.pager button{
+  border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 10px;
+  font-size:10px;font-weight:900;color:#222
+}
+.pager button:last-child{justify-self:end}
+.pager button:disabled{opacity:.35}
+.pagerInfo{font-size:11px;font-weight:900;text-align:center;color:#555}
+.paymentExpense .flowMeta:after{content:" · Cuota pagada";font-weight:800;color:var(--green)}
+.navBtn.active{background:white;color:#111}
+.app{padding-bottom:calc(145px + env(safe-area-inset-bottom))}
+.bottomNav{bottom:calc(8px + env(safe-area-inset-bottom));height:58px}
+@media(max-width:430px){
+  .moveFields{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .moveFields input,.moveFields select,.moveFields button{min-width:0}
+  .moveFields input[type="date"]{font-size:14px;padding-left:8px;padding-right:5px}
+  .flowRow{grid-template-columns:36px minmax(0,1fr) auto;gap:8px;padding:11px 10px}
+  .flowIcon{width:36px;height:36px;border-radius:11px}
+  .flowAmount{font-size:13px}
+  .bottomNav{width:calc(100% - 24px);height:56px;padding:4px}
+  .navBtn{font-size:8px;gap:2px}
+  .navBtn span{font-size:15px}
+}
+@media(max-width:360px){
+  .moveFields{grid-template-columns:1fr}
+  .moveFields .wide{grid-column:1}
+}
+
+.removePaymentBtn{
+  margin-top:6px;border:0;background:transparent;color:#9b4a43;
+  font-size:9px;font-weight:850;padding:0;text-align:left
+}
+.removePaymentBtn:active{opacity:.55}
+
+/* v22.2 · Resumen mensual formal con círculo */
+.monthSummary{
+  display:grid;
+  grid-template-columns:112px minmax(0,1fr);
+  gap:14px;
+  align-items:center;
+}
+.monthSummary .ring{
+  width:112px;height:112px;border-radius:50%;
+  display:grid;place-items:center;position:relative;
+  background:conic-gradient(#111 0deg,#e9e6df 0deg);
+  margin:0 auto;
+}
+.monthSummary .ring:after{
+  content:"";position:absolute;width:85px;height:85px;border-radius:50%;
+  background:white;box-shadow:inset 0 0 0 1px var(--line)
+}
+.monthSummary .ringInner{position:relative;z-index:2;text-align:center}
+.monthSummary .ringPct{font-size:24px;font-weight:950}
+.monthSummary .ringLabel{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+.monthMetrics{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  min-width:0;
+}
+.monthMetric{
+  min-width:0;
+  padding:11px 12px;
+  border-radius:16px;
+  background:var(--soft);
+  border:1px solid var(--line);
+}
+.monthMetric.wide{grid-column:1/-1}
+.monthMetricLabel{
+  font-size:9px;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.07em
+}
+.monthMetricValue{
+  font-size:17px;font-weight:950;margin-top:4px;
+  line-height:1.15;overflow-wrap:anywhere
+}
+@media(max-width:430px){
+  .monthSummary{
+    grid-template-columns:98px minmax(0,1fr);
+    gap:10px;
+  }
+  .monthSummary .ring{width:96px;height:96px}
+  .monthSummary .ring:after{width:73px;height:73px}
+  .monthSummary .ringPct{font-size:20px}
+  .monthMetrics{grid-template-columns:1fr}
+  .monthMetric,.monthMetric.wide{grid-column:auto}
+  .monthMetric{padding:9px 10px}
+  .monthMetricValue{font-size:15px}
+}
+@media(max-width:350px){
+  .monthSummary{grid-template-columns:1fr}
+  .monthSummary .ring{margin-bottom:2px}
+}
+
+/* v22.3 · navegación y pantalla separada de movimientos */
+.bottomNav{grid-template-columns:repeat(4,1fr)!important}
+.pageView{display:block}
+.pageView.hidden{display:none!important}
+.movementsScreen{
+  display:none;
+  min-height:100vh;
+  padding-bottom:calc(90px + env(safe-area-inset-bottom));
+}
+.movementsScreen.open{display:block}
+.movementsScreenHeader{
+  position:sticky;
+  top:0;
+  z-index:15;
+  margin:0 -14px 14px;
+  padding:calc(14px + env(safe-area-inset-top)) 16px 14px;
+  background:rgba(244,242,237,.96);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.movementsScreenTop{display:flex;align-items:center;gap:10px}
+.backMovements{
+  width:38px;height:38px;border:1px solid var(--line);
+  background:#fff;color:#111;border-radius:13px;
+  font-size:20px;font-weight:900;display:grid;place-items:center;
+}
+.movementsScreenTitle{font-size:19px;font-weight:950;letter-spacing:-.4px}
+.movementsScreenSub{margin:3px 0 0 48px;font-size:10px;color:var(--muted)}
