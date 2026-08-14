@@ -17,7 +17,7 @@
 
 <header class="hero" id="inicio">
  <div class="heroTop">
-  <div class="brand"><div class="logo">$</div><div><h1>Mi Control</h1><p>Finanzas personales · v22.5</p></div></div>
+  <div class="brand"><div class="logo">$</div><div><h1>Mi Control</h1><p>Finanzas personales · v22.6</p></div></div>
   <div class="monthWrap"><label>Mes</label><select id="monthPicker"></select></div>
  </div>
  <div class="heroBalance">
@@ -137,6 +137,7 @@
 
 <section class="card" id="cuotas">
  <div class="sectionHead"><h2 class="sectionTitle">Cuotas a pagar</h2><span class="sectionHint">Ordenadas por fecha</span></div>
+ <div id="paymentTotalBox" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 14px;margin:-2px 0 12px;border-radius:16px;background:#111;color:#fff"><span style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#aaa;font-weight:800">Total pendiente</span><strong id="paymentPendingTotal" style="font-size:20px;font-weight:950;letter-spacing:-.4px;text-align:right">$0</strong></div>
  <div class="schedule" id="paymentList"></div>
 </section>
 
@@ -188,5 +189,18 @@
 </div>
 
 <script src="app1.js?v=225"></script><script src="app2.js?v=225"></script><script src="app3.js?v=225"></script>
+<script>
+(()=>{
+ const originalRenderPayments=renderPayments;
+ renderPayments=function(){
+   originalRenderPayments();
+   const list=allPayments();
+   const total=list.filter(p=>!isPaidPayment(p)).reduce((s,p)=>s+Number(p.amount||0),0);
+   const el=document.getElementById("paymentPendingTotal");
+   if(el)el.textContent=money(total);
+ };
+ renderPayments();
+})();
+</script>
 </body>
 </html>
