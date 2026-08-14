@@ -1,0 +1,42 @@
+/* Mercado Pago · botón compacto */
+#ingresos{position:relative}
+#ingresos .sectionHead{padding-right:48px}
+.mpImportBox{
+  position:absolute;
+  top:17px;
+  right:18px;
+  margin:0;
+  z-index:3;
+}
+.mpImportBtn{
+  width:38px!important;
+  height:38px!important;
+  min-width:38px!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:12px!important;
+  background:#009ee3!important;
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  place-items:center!important;
+  box-shadow:0 5px 14px rgba(0,158,227,.22);
+  overflow:hidden;
+}
+.mpImportLogo{
+  width:30px!important;
+  height:24px!important;
+  border-radius:0!important;
+  background:transparent url('mercadopago-logo.svg?v=228') center/contain no-repeat!important;
+  color:transparent!important;
+  font-size:0!important;
+  overflow:hidden;
+}
+.mpImportText,.mpImportArrow{display:none!important}
+.mpFileName{display:none!important}
+.mpImportBtn:active{transform:scale(.96)}
+@media(max-width:430px){
+  .mpImportBox{top:16px;right:16px}
+  .mpImportBtn{width:36px!important;height:36px!important;min-width:36px!important;border-radius:11px!important}
+  .mpImportLogo{width:28px!important;height:22px!important}
+  #ingresos .sectionHead{padding-right:44px}
+}
