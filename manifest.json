@@ -1,0 +1,8 @@
+{
+  "name": "Mi Control - Finanzas personales",
+  "short_name": "Mi Control",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4f2ed",
+  "theme_color": "#0d0d0d"
+}
