@@ -6,19 +6,19 @@
 <meta name="theme-color" content="#0d0d0d">
 <title>Mi Control</title>
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="base.css?v=227"><link rel="stylesheet" href="enhancements.css?v=227"><link rel="stylesheet" href="mp.css?v=231">
+<link rel="stylesheet" href="base.css?v=234"><link rel="stylesheet" href="enhancements.css?v=234"><link rel="stylesheet" href="mp.css?v=234">
 </head>
 <body>
 <div class="app">
 <div id="mainPage" class="pageView">
 <div class="previewWarning" id="previewWarning">
-  Estás viendo el archivo en modo vista previa. Para que los botones y el guardado entre meses funcionen de forma confiable en iPhone, abrí la app desde Safari mediante una dirección web.
+  Estás viendo el archivo en modo vista previa. Para que los botones y el guardado entre ciclos funcionen de forma confiable en iPhone, abrí la app desde Safari mediante una dirección web.
 </div>
 
 <header class="hero" id="inicio">
  <div class="heroTop">
-  <div class="brand"><div class="logo">$</div><div><h1>Mi Control</h1><p>Finanzas personales · v22.11</p></div></div>
-  <div class="monthWrap"><label>Mes</label><select id="monthPicker"></select></div>
+  <div class="brand"><div class="logo">$</div><div><h1>Mi Control</h1><p>Finanzas personales · v23.0</p></div></div>
+  <div class="monthWrap"><label>Ciclo</label><select id="monthPicker"></select></div>
  </div>
  <div class="heroBalance">
   <div class="heroLabel">Disponible ahora</div>
@@ -41,7 +41,7 @@
 
 <section class="card" id="ingresos">
  <div class="sectionHead"><h2 class="sectionTitle">Ingresos de dinero</h2><span class="sectionHint" id="incomeMonthLabel"></span></div>
- <div class="totalBox"><div class="small">Ingresado este mes</div><div class="big" id="incomeTotal">$0</div></div>
+ <div class="totalBox"><div class="small">Ingresado en este ciclo</div><div class="big" id="incomeTotal">$0</div></div>
 
  <div style="height:10px"></div>
  <div class="moveBox" id="cargar">
@@ -110,7 +110,7 @@
 
 <section class="card" id="resumen">
  <div class="sectionHead">
-  <h2 class="sectionTitle">Resumen mensual</h2>
+  <h2 class="sectionTitle">Resumen del ciclo</h2>
   <span class="sectionHint" id="summaryMonthLabel"></span>
  </div>
 
@@ -157,7 +157,7 @@
 <section class="card" id="ahorro">
  <div class="sectionHead"><h2 class="sectionTitle">Ahorro</h2><span class="sectionHint" id="savingHint">Sin meta</span></div>
  <div class="savingsGrid">
-  <div class="saveMini"><div class="saveLabel">Meta del mes</div><div class="saveValue" id="savingTargetLabel">$0</div></div>
+  <div class="saveMini"><div class="saveLabel">Meta del ciclo</div><div class="saveValue" id="savingTargetLabel">$0</div></div>
   <div class="saveMini"><div class="saveLabel">Ahorrado</div><div class="saveValue" id="savedLabel">$0</div></div>
  </div>
  <div class="saveProgress"><div id="saveProgressBar"></div></div>
@@ -201,6 +201,6 @@
   </section>
 </div>
 
-<script src="app1.js?v=227"></script><script src="app2.js?v=229"></script><script src="app3.js?v=227"></script><script src="mp-import.js?v=229"></script>
+<script src="app1.js?v=234"></script><script src="app2.js?v=234"></script><script src="app3.js?v=234"></script><script src="mp-import.js?v=234"></script><script src="cycle.js?v=234"></script>
 </body>
 </html>
