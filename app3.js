@@ -105,7 +105,36 @@ function closeMovementsScreen(){
  setTimeout(updateActiveNav,50);
 }
 
+function ensureMpImportUI(){
+ if(q("#mpImportBtn"))return;
+ const recent=q(".recentHead");
+ if(!recent)return;
+ const wrap=document.createElement("div");
+ wrap.className="mpImportBox";
+ wrap.style.margin="12px 0 2px";
+ wrap.innerHTML=`
+   <button id="mpImportBtn" type="button" style="width:100%;border:1px solid #cfe8f7;background:#eef9ff;color:#111;border-radius:16px;padding:10px 12px;display:grid;grid-template-columns:42px 1fr auto;gap:10px;align-items:center;text-align:left">
+     <span aria-hidden="true" style="width:42px;height:42px;border-radius:50%;background:#009ee3;color:#fff;display:grid;place-items:center;font-size:13px;font-weight:950">MP</span>
+     <span style="display:flex;flex-direction:column;gap:2px;min-width:0"><strong style="font-size:12px;font-weight:950">Importar Mercado Pago</strong><small style="font-size:9px;color:#557786">Seleccionar reporte CSV</small></span>
+     <span aria-hidden="true" style="font-size:24px;color:#009ee3;font-weight:900">›</span>
+   </button>
+   <input id="mpFileInput" type="file" accept=".csv,text/csv" hidden>
+   <div id="mpFileName" style="display:none;margin:7px 4px 0;font-size:9px;color:#77736d;overflow-wrap:anywhere"></div>`;
+ recent.parentNode.insertBefore(wrap,recent);
+}
+
 function bind(){
+ ensureMpImportUI();
+ const mpBtn=q("#mpImportBtn"),mpInput=q("#mpFileInput"),mpName=q("#mpFileName");
+ if(mpBtn&&mpInput){
+   mpBtn.addEventListener("click",()=>mpInput.click());
+   mpInput.addEventListener("change",()=>{
+     const file=mpInput.files&&mpInput.files[0];
+     if(!file)return;
+     if(mpName){mpName.textContent="Archivo seleccionado: "+file.name;mpName.style.display="block";}
+     alert("Listo, seleccionaste el reporte de Mercado Pago. Todavía no voy a importar movimientos hasta adaptar el lector al formato exacto de tu archivo.");
+   });
+ }
  q("#viewMoreMovements").addEventListener("click",openMovementsScreen);
  q("#backMovements").addEventListener("click",closeMovementsScreen);
  qa("[data-movement-filter]").forEach(btn=>btn.addEventListener("click",()=>{
