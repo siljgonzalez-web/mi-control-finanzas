@@ -36,6 +36,9 @@ function renderSummary(){
 }
 function renderPayments(){
  const list=allPayments();
+ const pendingTotal=list.filter(p=>!isPaidPayment(p)).reduce((sum,p)=>sum+Number(p.amount||0),0);
+ const totalEl=q("#paymentPendingTotal");
+ if(totalEl)totalEl.textContent=money(pendingTotal);
  q("#paymentList").innerHTML=list.map(p=>{
    const paid=isPaidPayment(p),diff=daysUntil(p.due);
    const d=new Date(p.due+"T12:00:00");
