@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0d0d0d">
 <title>Mi Control</title>
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="base.css?v=224"><link rel="stylesheet" href="enhancements.css?v=224">
+<link rel="stylesheet" href="base.css?v=225"><link rel="stylesheet" href="enhancements.css?v=225">
 </head>
 <body>
 <div class="app">
@@ -17,7 +17,7 @@
 
 <header class="hero" id="inicio">
  <div class="heroTop">
-  <div class="brand"><div class="logo">$</div><div><h1>Mi Control</h1><p>Finanzas personales · v22.4</p></div></div>
+  <div class="brand"><div class="logo">$</div><div><h1>Mi Control</h1><p>Finanzas personales · v22.5</p></div></div>
   <div class="monthWrap"><label>Mes</label><select id="monthPicker"></select></div>
  </div>
  <div class="heroBalance">
@@ -113,12 +113,25 @@
   </div>
 
   <div class="monthMetrics">
-   <div class="monthMetric wide"><div class="monthMetricLabel">Disponible</div><div class="monthMetricValue" id="remaining">$0</div></div>
-   <div class="monthMetric"><div class="monthMetricLabel">Pendiente</div><div class="monthMetricValue" id="pending">$0</div></div>
-   <div class="monthMetric"><div class="monthMetricLabel">Utilizado</div><div class="monthMetricValue" id="used">$0</div></div>
-   <div class="monthMetric wide"><div class="monthMetricLabel">Tope diario sugerido</div><div class="monthMetricValue" id="summaryDaily">$0</div></div>
+   <div class="monthMetric wide">
+    <div class="monthMetricLabel">Disponible</div>
+    <div class="monthMetricValue" id="remaining">$0</div>
+   </div>
+   <div class="monthMetric">
+    <div class="monthMetricLabel">Pendiente</div>
+    <div class="monthMetricValue" id="pending">$0</div>
+   </div>
+   <div class="monthMetric">
+    <div class="monthMetricLabel">Utilizado</div>
+    <div class="monthMetricValue" id="used">$0</div>
+   </div>
+   <div class="monthMetric wide">
+    <div class="monthMetricLabel">Tope diario sugerido</div>
+    <div class="monthMetricValue" id="summaryDaily">$0</div>
+   </div>
   </div>
  </div>
+
  <div class="notice" id="status"></div>
 </section>
 
@@ -138,7 +151,10 @@
  <div class="saveInputs"><input id="savingAddInput" type="number" min="0" step="1000" placeholder="$ Ahorrar ahora"><button class="btn btnDark" id="savingAdd" type="button">+ Ahorro</button></div>
  <div class="saveDaily"><span>Tope diario sugerido</span><b id="dailyLimit">$0</b></div>
 </section>
+
 </div>
+
+</div><!-- /mainPage -->
 
 <nav class="bottomNav">
  <a class="navBtn active" href="#inicio"><span>⌂</span>Inicio</a>
@@ -155,6 +171,7 @@
     </div>
     <div class="movementsScreenSub" id="allMovementsMonthLabel"></div>
   </div>
+
   <section class="card">
     <div class="movementFilters">
       <button class="movementFilter active" type="button" data-movement-filter="all">Todos</button>
@@ -169,7 +186,7 @@
     </div>
   </section>
 </div>
-</div>
-<script src="app1.js?v=224"></script><script src="app2.js?v=224"></script><script src="app3.js?v=224"></script>
+
+<script src="app1.js?v=225"></script><script src="app2.js?v=225"></script><script src="app3.js?v=225"></script>
 </body>
 </html>
