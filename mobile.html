@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Mi Control</title></head>
+<body>
+<script>
+(async()=>{
+ const css=`
+ .app{padding-bottom:calc(145px + env(safe-area-inset-bottom))!important}
+ #resumen .dashboard{display:grid!important;grid-template-columns:76px minmax(0,1fr)!important;gap:14px!important;align-items:center!important}
+ #resumen .ring{width:76px!important;height:76px!important;border-radius:23px!important;background:#111!important;color:#fff!important;box-shadow:0 8px 20px rgba(0,0,0,.12)!important}
+ #resumen .ring:after{display:none!important}
+ #resumen .ringPct{font-size:22px!important;color:#fff!important}
+ #resumen .ringLabel{font-size:8px!important;color:#bbb!important}
+ #resumen .metrics{display:block!important;min-width:0!important}
+ #resumen .metric{display:none!important;padding:0!important;border:0!important;background:transparent!important}
+ #resumen .metric:first-child{display:block!important;text-align:right!important}
+ #resumen .metric:first-child .metricLabel{font-size:10px!important}
+ #resumen .metric:first-child .metricValue{font-size:27px!important;letter-spacing:-.7px!important;overflow-wrap:anywhere!important}
+ #resumen.details-open .metric{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:12px!important;padding:9px 0!important;border-bottom:1px solid #e9e5de!important;text-align:left!important}
+ #resumen.details-open .metric:first-child{display:block!important;border-bottom:0!important;padding:0 0 10px!important;text-align:right!important}
+ #resumen.details-open .metric:last-child{border-bottom:0!important}
+ #resumen.details-open .metric:not(:first-child) .metricValue{font-size:14px!important;text-align:right!important}
+ #resumen.details-open .metric:not(:first-child) .metricLabel{font-size:10px!important}
+ #resumen .summary-toggle{width:100%;margin-top:11px;border:1px solid var(--line);background:#f7f5f1;color:#222;border-radius:14px;padding:10px 12px;font-size:11px;font-weight:900;display:flex;justify-content:space-between;align-items:center}
+ #resumen .summary-extra{display:none;margin-top:9px;padding:2px 12px;border:1px solid var(--line);border-radius:16px;background:var(--soft)}
+ #resumen.details-open .summary-extra{display:block}
+ #resumen .summary-extra-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:9px 0}
+ #resumen .summary-extra-row span{font-size:10px;color:var(--muted)}
+ #resumen .summary-extra-row strong{font-size:14px;text-align:right}
+ .bottomNav{bottom:calc(8px + env(safe-area-inset-bottom))!important;height:56px!important;width:calc(100% - 24px)!important;padding:4px!important}
+ .navBtn{font-size:8px!important;gap:2px!important}.navBtn span{font-size:15px!important}
+ @media(max-width:430px){#resumen .metric:first-child .metricValue{font-size:23px!important}}
+ `;
+ const post=`
+ <script>
+ (()=>{
+  const setup=()=>{
+   const s=document.querySelector('#resumen'); if(!s||s.querySelector('.summary-toggle'))return;
+   const btn=document.createElement('button'); btn.type='button';btn.className='summary-toggle';btn.innerHTML='<span>Ver detalle</span><span>⌄</span>';
+   const extra=document.createElement('div');extra.className='summary-extra';extra.innerHTML='<div class="summary-extra-row"><span>Tope diario sugerido</span><strong id="summaryDailyMirror">$0</strong></div>';
+   const dash=s.querySelector('.dashboard');dash.insertAdjacentElement('afterend',btn);btn.insertAdjacentElement('afterend',extra);
+   btn.addEventListener('click',()=>{const open=s.classList.toggle('details-open');btn.firstElementChild.textContent=open?'Ocultar detalle':'Ver detalle';btn.lastElementChild.textContent=open?'⌃':'⌄';});
+   const sync=()=>{const d=document.querySelector('#dailyLimit'),m=document.querySelector('#summaryDailyMirror');if(d&&m)m.textContent=d.textContent;};
+   sync(); const d=document.querySelector('#dailyLimit');if(d)new MutationObserver(sync).observe(d,{childList:true,subtree:true,characterData:true});
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
+ })();
+ <\/script>`;
+ const r=await fetch('./index.html',{cache:'no-store'});let h=await r.text();
+ h=h.replace('Finanzas personales · v20','Finanzas personales · v21 · móvil');
+ h=h.replace('</head>',`<style>${css}</style></head>`).replace('</body>',post+'</body>');
+ document.open();document.write(h);document.close();
+})().catch(()=>{document.body.innerHTML='<p style="font-family:system-ui;padding:24px">No se pudo abrir Mi Control. Recargá la página.</p>'});
+</script>
+</body>
+</html>
