@@ -1,3 +1,5 @@
+let paymentsExpanded=false;
+
 function renderHeader(){
  const {m,income,used,remaining}=selectedTotals();
  q("#heroAvailable").textContent=money(remaining);
@@ -34,34 +36,51 @@ function renderSummary(){
  else{msg="🟢 El nivel de uso se mantiene por debajo del 50% de los ingresos.";bg="#eaf7f0";fg="#226b4a"}
  q("#status").textContent=msg;q("#status").style.background=bg;q("#status").style.color=fg;
 }
+function paymentCardHTML(p){
+ const paid=isPaidPayment(p),diff=daysUntil(p.due);
+ const d=new Date(p.due+"T12:00:00");
+ const mon=d.toLocaleDateString("es-AR",{month:"short"}).replace(".","").toUpperCase();
+ const cls=paid?"paid":diff<0?"overdue":diff<=5?"dueSoon":"";
+ let chip="";
+ if(paid)chip='<span class="chip paid">Pagado</span>';
+ else if(diff<0)chip=`<span class="chip late">Vencida hace ${Math.abs(diff)} día${Math.abs(diff)===1?"":"s"}</span>`;
+ else if(diff===0)chip='<span class="chip warn">Vence hoy</span>';
+ else if(diff<=5)chip=`<span class="chip warn">Vence en ${diff} día${diff===1?"":"s"}</span>`;
+ return `<div class="payCard ${cls}">
+  <div class="dateBox"><div class="dateDay">${String(d.getDate()).padStart(2,"0")}</div><div class="dateMon">${mon}</div></div>
+  <div>
+    <div class="payTitle">${escapeHTML(p.title)}</div>
+    <div class="payMeta">${d.toLocaleDateString("es-AR",{day:"2-digit",month:"long",year:"numeric"})}</div>
+    <div class="paySub">${escapeHTML(p.sub||"")}</div>
+    ${chip}
+    <label class="payCheck"><input type="checkbox" data-pay-id="${p.id}" data-custom="${p.custom?"1":"0"}" ${paid?"checked":""}> ${paid?"Pagado":"Marcar como pagado"}</label>
+    <button class="removePaymentBtn" type="button" data-remove-payment="${p.id}" data-custom="${p.custom?"1":"0"}">Quitar cuota</button>
+  </div>
+  <div class="payAmount">${money(p.amount)}</div>
+ </div>`;
+}
 function renderPayments(){
  const list=allPayments();
- const pendingTotal=list.filter(p=>!isPaidPayment(p)).reduce((sum,p)=>sum+Number(p.amount||0),0);
+ const pendingList=list.filter(p=>!isPaidPayment(p)).sort((a,b)=>String(a.due).localeCompare(String(b.due)));
+ const pendingTotal=pendingList.reduce((sum,p)=>sum+Number(p.amount||0),0);
  const totalEl=q("#paymentPendingTotal");
  if(totalEl)totalEl.textContent=money(pendingTotal);
- q("#paymentList").innerHTML=list.map(p=>{
-   const paid=isPaidPayment(p),diff=daysUntil(p.due);
-   const d=new Date(p.due+"T12:00:00");
-   const mon=d.toLocaleDateString("es-AR",{month:"short"}).replace(".","").toUpperCase();
-   const cls=paid?"paid":diff<0?"overdue":diff<=5?"dueSoon":"";
-   let chip="";
-   if(paid)chip='<span class="chip paid">Pagado</span>';
-   else if(diff<0)chip=`<span class="chip late">Vencida hace ${Math.abs(diff)} día${Math.abs(diff)===1?"":"s"}</span>`;
-   else if(diff===0)chip='<span class="chip warn">Vence hoy</span>';
-   else if(diff<=5)chip=`<span class="chip warn">Vence en ${diff} día${diff===1?"":"s"}</span>`;
-   return `<div class="payCard ${cls}">
-    <div class="dateBox"><div class="dateDay">${String(d.getDate()).padStart(2,"0")}</div><div class="dateMon">${mon}</div></div>
-    <div>
-      <div class="payTitle">${escapeHTML(p.title)}</div>
-      <div class="payMeta">${d.toLocaleDateString("es-AR",{day:"2-digit",month:"long",year:"numeric"})}</div>
-      <div class="paySub">${escapeHTML(p.sub||"")}</div>
-      ${chip}
-      <label class="payCheck"><input type="checkbox" data-pay-id="${p.id}" data-custom="${p.custom?"1":"0"}" ${paid?"checked":""}> ${paid?"Pagado":"Marcar como pagado"}</label>
-      <button class="removePaymentBtn" type="button" data-remove-payment="${p.id}" data-custom="${p.custom?"1":"0"}">Quitar cuota</button>
-    </div>
-    <div class="payAmount">${money(p.amount)}</div>
-   </div>`;
- }).join("");
+
+ const shown=paymentsExpanded?list:pendingList.slice(0,3);
+ q("#paymentList").innerHTML=shown.length?shown.map(paymentCardHTML).join(""):'<div style="padding:12px 4px;color:var(--muted);font-size:11px">No hay cuotas pendientes.</div>';
+
+ let more=q("#viewMorePayments");
+ if(!more){
+   more=document.createElement("button");
+   more.id="viewMorePayments";
+   more.type="button";
+   more.className="moreMovements";
+   q("#paymentList").insertAdjacentElement("afterend",more);
+   more.addEventListener("click",()=>{paymentsExpanded=!paymentsExpanded;renderPayments()});
+ }
+ const shouldShow=paymentsExpanded?list.length>0:list.length>shown.length;
+ more.style.display=shouldShow?"flex":"none";
+ more.innerHTML=paymentsExpanded?'<span>Ver menos</span><span>↑</span>':'<span>Ver todas las cuotas</span><span>→</span>';
 }
 function renderAlerts(){
  const close=allPayments()
