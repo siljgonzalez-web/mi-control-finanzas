@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#0d0d0d">
 <title>Mi Control</title>
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="base.css?v=225"><link rel="stylesheet" href="enhancements.css?v=225">
+<link rel="stylesheet" href="base.css?v=227"><link rel="stylesheet" href="enhancements.css?v=227">
 </head>
 <body>
 <div class="app">
@@ -17,7 +17,7 @@
 
 <header class="hero" id="inicio">
  <div class="heroTop">
-  <div class="brand"><div class="logo">$</div><div><h1>Mi Control</h1><p>Finanzas personales · v22.6</p></div></div>
+  <div class="brand"><div class="logo">$</div><div><h1>Mi Control</h1><p>Finanzas personales · v22.7</p></div></div>
   <div class="monthWrap"><label>Mes</label><select id="monthPicker"></select></div>
  </div>
  <div class="heroBalance">
@@ -88,6 +88,16 @@
   </div>
  </div>
 
+ <div class="mpImportBox">
+   <button class="mpImportBtn" id="mpImportBtn" type="button">
+     <span class="mpImportLogo" aria-hidden="true">MP</span>
+     <span class="mpImportText"><strong>Importar Mercado Pago</strong><small>Seleccionar reporte CSV</small></span>
+     <span class="mpImportArrow">›</span>
+   </button>
+   <input id="mpFileInput" type="file" accept=".csv,text/csv" hidden>
+   <div class="mpFileName" id="mpFileName"></div>
+ </div>
+
  <div class="recentHead">
    <strong>Últimos movimientos</strong>
    <span id="recentMovementCount">0 movimientos</span>
@@ -137,7 +147,10 @@
 
 <section class="card" id="cuotas">
  <div class="sectionHead"><h2 class="sectionTitle">Cuotas a pagar</h2><span class="sectionHint">Ordenadas por fecha</span></div>
- <div id="paymentTotalBox" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 14px;margin:-2px 0 12px;border-radius:16px;background:#111;color:#fff"><span style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#aaa;font-weight:800">Total pendiente</span><strong id="paymentPendingTotal" style="font-size:20px;font-weight:950;letter-spacing:-.4px;text-align:right">$0</strong></div>
+ <div class="paymentTotalBox">
+   <span>Total pendiente</span>
+   <strong id="paymentPendingTotal">$0</strong>
+ </div>
  <div class="schedule" id="paymentList"></div>
 </section>
 
@@ -188,19 +201,6 @@
   </section>
 </div>
 
-<script src="app1.js?v=225"></script><script src="app2.js?v=225"></script><script src="app3.js?v=225"></script>
-<script>
-(()=>{
- const originalRenderPayments=renderPayments;
- renderPayments=function(){
-   originalRenderPayments();
-   const list=allPayments();
-   const total=list.filter(p=>!isPaidPayment(p)).reduce((s,p)=>s+Number(p.amount||0),0);
-   const el=document.getElementById("paymentPendingTotal");
-   if(el)el.textContent=money(total);
- };
- renderPayments();
-})();
-</script>
+<script src="app1.js?v=227"></script><script src="app2.js?v=227"></script><script src="app3.js?v=227"></script>
 </body>
 </html>
