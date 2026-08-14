@@ -1,12 +1,17 @@
 /* Mercado Pago · botón compacto */
 #ingresos{position:relative}
-#ingresos .sectionHead{padding-right:48px}
+#ingresos .sectionHead{
+  padding-right:52px;
+  min-height:42px;
+  margin-bottom:10px;
+  align-items:center;
+}
 .mpImportBox{
   position:absolute;
-  top:17px;
+  top:14px;
   right:18px;
   margin:0;
-  z-index:3;
+  z-index:5;
 }
 .mpImportBtn{
   width:38px!important;
@@ -27,7 +32,11 @@
   height:23px!important;
   display:block!important;
   border-radius:0!important;
-  background:transparent url('mercadopago-logo.svg?v=230') center/contain no-repeat!important;
+  background-color:transparent!important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 84'%3E%3Crect width='120' height='84' rx='8' fill='%2300b5e8'/%3E%3Cellipse cx='60' cy='42' rx='49' ry='29' fill='%2300b5e8' stroke='%232d2a8e' stroke-width='4'/%3E%3Cpath d='M22 38c7-8 15-12 22-12 8 0 13 4 17 8l5 5c3 3 7 3 10 0l8-7c5-4 10-5 15-4l9 5-9 10-8 0-9 8-6-2-6 6-6-2-6 6-8-3-7-7-8 1-13-12z' fill='white' stroke='%232d2a8e' stroke-width='3' stroke-linejoin='round'/%3E%3Cpath d='M40 48l8 7m1-12 10 9m1-12 10 9m1-12 9 8' fill='none' stroke='%232d2a8e' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E")!important;
+  background-position:center!important;
+  background-size:contain!important;
+  background-repeat:no-repeat!important;
   color:transparent!important;
   font-size:0!important;
   overflow:hidden;
@@ -46,14 +55,19 @@
   backdrop-filter:blur(8px);
   -webkit-backdrop-filter:blur(8px);
 }
+#ingresos .totalBox{margin-top:2px}
 #ingresos .totalBox .small,
 #cuotas .paymentTotalBox span{color:rgba(255,255,255,.68)!important}
 #ingresos .totalBox .big,
 #cuotas .paymentTotalBox strong{color:#fff!important}
 
 @media(max-width:430px){
-  .mpImportBox{top:16px;right:16px}
+  #ingresos .sectionHead{
+    padding-right:46px;
+    min-height:40px;
+    margin-bottom:10px;
+  }
+  .mpImportBox{top:13px;right:16px}
   .mpImportBtn{width:36px!important;height:36px!important;min-width:36px!important;border-radius:11px!important}
   .mpImportLogo{width:29px!important;height:21px!important}
-  #ingresos .sectionHead{padding-right:44px}
 }
